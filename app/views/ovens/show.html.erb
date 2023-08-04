@@ -2,12 +2,16 @@
 
 <div class="cookie-info">
   Cookie in oven:
-  <% if @oven.cookie %>
-    1 cookie with <%= @oven.cookie.fillings || "no fillings" %>
-    <% if @oven.cookie.ready? %>
-      (Your Cookie is Ready)
-      <%= button_to "Retrieve Cookie", empty_oven_path, class: 'button tiny' %>
-    <% end %>
+  <% if @oven.cookie.present? %>
+    <% @oven.cookie.each do |cookie| %>
+      <div class="">
+        1 cookie with <%= cookie.fillings || "no fillings" %>
+          <% if cookie.ready? %>
+          (Your Cookie is Ready)
+          <% end %>
+        <% end %>
+      </div>
+    <%= button_to "Retrieve Cookie", empty_oven_path, class: 'button tiny' %>
   <% else %>
     None
   <% end %>

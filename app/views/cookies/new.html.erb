@@ -6,12 +6,25 @@
       <%= f.label :fillings %>
     </div>
   </div>
-  
+
   <div class="row">
     <div class="small-8 columns">
       <%= f.text_field :fillings %>
     </div>
   </div>
+
+  <div class="row">
+    <div class="small-8 columns">
+      <%= f.label :batch_size %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-8 columns">
+      <%= f.number_field :cookie_count, value: 1, in: 1..10 %>
+    </div>
+  </div>
+
 
   <div class="row">
     <div class="small-8 columns">
