@@ -92,12 +92,12 @@ describe OvensController do
         expect(assigns(:oven)).to eq(oven)
       end
 
-      it "moves the oven's cookie to the user" do
-        cookie = create(:cookie, storage: oven)
+      it "moves the oven's cookies to the user" do
+        cookie = create(:cookie, storage: oven, baked: true)
 
         post "/ovens/#{oven.id}/empty"
 
-        expect(oven.cookie).to be_nil
+        expect(oven.reload.cookies).to be_empty
         expect(user.stored_cookies.to_a).to match_array([cookie])
       end
 

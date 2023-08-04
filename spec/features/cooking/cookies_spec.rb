@@ -1,12 +1,11 @@
-feature 'Cooking cookies' do
+feature 'Cooking cookies', js: true do
   scenario 'Cooking a single cookie' do
     user = create_and_signin
     oven = user.ovens.first
-
     visit oven_path(oven)
 
     expect(page).to_not have_content 'Chocolate Chip'
-    expect(page).to_not have_content 'Your Cookie is Ready'
+    expect(page).to_not have_content 'Your Cookies are Ready'
 
     click_link_or_button 'Prepare Cookie'
     fill_in 'Fillings', with: 'Chocolate Chip'
@@ -14,7 +13,7 @@ feature 'Cooking cookies' do
 
     expect(current_path).to eq(oven_path(oven))
     expect(page).to have_content 'Chocolate Chip'
-    expect(page).to have_content 'Your Cookie is Ready'
+    expect(page).to have_text('Your Cookies are Ready', wait: 100)
 
     click_button 'Retrieve Cookie'
     expect(page).to_not have_content 'Chocolate Chip'
@@ -38,7 +37,7 @@ feature 'Cooking cookies' do
     click_button 'Mix and bake'
 
     click_link_or_button  'Prepare Cookie'
-    expect(page).to have_content 'A cookie is already in the oven!'
+    expect(page).to have_content 'Cookies are already in the oven!'
     expect(current_path).to eq(oven_path(oven))
     expect(page).to_not have_button 'Mix and bake'
   end
@@ -50,13 +49,15 @@ feature 'Cooking cookies' do
     oven = create(:oven, user: user)
     visit oven_path(oven)
 
-    3.times do
-      click_link_or_button 'Prepare Cookie'
-      fill_in 'Fillings', with: 'Chocolate Chip'
-      click_button 'Mix and bake'
+    click_link_or_button 'Prepare Cookie'
+    fill_in 'Fillings', with: 'Chocolate Chip'
+    fill_in 'Cookie count', with: 3
 
-      click_button 'Retrieve Cookie'
-    end
+    click_button 'Mix and bake'
+
+    expect(page).to have_text('Your Cookies are Ready', wait: 100)
+
+    click_button 'Retrieve Cookie'
 
     visit root_path
     within '.store-inventory' do

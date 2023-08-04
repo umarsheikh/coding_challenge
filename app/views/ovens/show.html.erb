@@ -7,9 +7,9 @@
       <%= @oven.cookies.count %> cookies with <%= @oven.cookies.first.fillings.presence || "no fillings" %>
       <span id="cookie-baking-info">
         <% if @oven.cookies.all?(&:ready?) %>
-        (Your Cookies are Ready)
+          (Your Cookies are Ready)
         <% else %>
-        (Your Cookies are being baked)
+          (Your Cookies are being baked)
         <% end %>
       </span>
     </div>

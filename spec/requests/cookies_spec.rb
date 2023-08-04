@@ -49,9 +49,11 @@ describe CookiesController do
   end
 
   describe 'POST create' do
+    let(:cookie_count) { 1 }
     let(:cookie_params) do
       {
-        fillings: 'Vanilla'
+        fillings: 'Vanilla',
+        cookie_count: cookie_count
       }
     end
 
@@ -74,10 +76,10 @@ describe CookiesController do
       end
 
       context "when a valid oven is supplied" do
-        it "creates a cookie for that oven" do
+        it "creates cookies for that oven" do
           expect {
             post "/ovens/#{oven.id}/cookies", params: { cookie: cookie_params }
-          }.to change{Cookie.count}.by(1)
+          }.to change{Cookie.count}.by(cookie_count)
 
           expect(Cookie.last.storage).to eq(oven)
         end
