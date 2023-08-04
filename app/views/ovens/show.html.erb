@@ -4,16 +4,14 @@
   Cookie in oven:
   <% if @oven.cookies.present? %>
     <div id="cookie-list">
-      <% @oven.cookies.each do |cookie| %>
-        <div id="cookie-<%= cookie.id %>">
-          1 cookie with <%= cookie.fillings.presence || "no fillings" %>
-          <% if cookie.ready? %>
-            (Your Cookie is Ready)
-          <% else %>
-            (Your Cookie is being baked)
-          <% end %>
-        </div>
-      <% end %>
+      <%= @oven.cookies.count %> cookies with <%= @oven.cookies.first.fillings.presence || "no fillings" %>
+      <span id="cookie-baking-info">
+        <% if @oven.cookies.all?(&:ready?) %>
+        (Your Cookies are Ready)
+        <% else %>
+        (Your Cookies are being baked)
+        <% end %>
+      </span>
     </div>
     <%= button_to "Retrieve Cookie", empty_oven_path, class: 'button tiny' %>
   <% else %>

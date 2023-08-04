@@ -10,15 +10,12 @@ export default {
       disconnected() {},
 
       received(data) {
-        const cookies = data.cookies;
-        cookies.forEach(cookie => {
-          const cookieElement = document.getElementById(`cookie-${cookie.id}`);
-          if (cookie.baked) {
-            cookieElement.innerText = `1 cookie with ${cookie.fillings || "no fillings"} (Your Cookie is Ready)`;
-          } else {
-            cookieElement.innerText = `1 cookie with ${cookie.fillings || "no fillings"} (Your Cookie is being baked)`;
-          }
-        });
+        const cookieElement = document.getElementById(`cookie-baking-info`);
+        if (data.cookies_baked) {
+          cookieElement.innerText = `(Your Cookies are Ready)`;
+        } else {
+          cookieElement.innerText = `(Your Cookies are being baked)`;
+        }
       }
     });
   }
