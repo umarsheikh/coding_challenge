@@ -3,10 +3,10 @@ class CookiesController < ApplicationController
 
   def new
     @oven = current_user.ovens.find_by!(id: params[:oven_id])
-    if @oven.cookie.present?
-      redirect_to @oven, alert: 'A cookie is already in the oven!'
+    if @oven.cookies.present?
+      redirect_to @oven, alert: 'Cookies are already in the oven!'
     else
-      @cookie = @oven.cookie.build
+      @cookie = @oven.cookies.build
     end
   end
 

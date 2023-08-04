@@ -14,6 +14,6 @@ class OvensController < ApplicationController
     @oven.cookies.select(&:ready?).each do |baked_cookie|
       baked_cookie.update!(storage: current_user)
     end
-    redirect_to @oven, alert: 'Oven emptied!' if @oven.reload.cookie.empty?
+    redirect_to @oven, alert: 'Oven emptied!' if @oven.reload.cookies.empty?
   end
 end

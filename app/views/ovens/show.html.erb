@@ -1,16 +1,20 @@
 <h3><%= @oven.name %></h3>
 
-<div class="cookie-info">
+<div id="cookie-info" data-controller="oven-channel" data-oven-channel-id="<%= @oven.id %>">
   Cookie in oven:
-  <% if @oven.cookie.present? %>
-    <% @oven.cookie.each do |cookie| %>
-      <div class="">
-        1 cookie with <%= cookie.fillings || "no fillings" %>
+  <% if @oven.cookies.present? %>
+    <div id="cookie-list">
+      <% @oven.cookies.each do |cookie| %>
+        <div id="cookie-<%= cookie.id %>">
+          1 cookie with <%= cookie.fillings.presence || "no fillings" %>
           <% if cookie.ready? %>
-          (Your Cookie is Ready)
+            (Your Cookie is Ready)
+          <% else %>
+            (Your Cookie is being baked)
           <% end %>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
+    </div>
     <%= button_to "Retrieve Cookie", empty_oven_path, class: 'button tiny' %>
   <% else %>
     None
