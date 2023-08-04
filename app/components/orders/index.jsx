@@ -9,12 +9,14 @@ const fetchOrders = async () => {
 
 export default () => {
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const go = async () => {
       try {
         const orders = await fetchOrders();
         setOrders(orders);
+        setLoading(false);
       } catch (er) {
         alert(`uh oh! ${er}`);
       }
@@ -22,5 +24,14 @@ export default () => {
     go();
   }, []);
 
-  return <Table orders={orders} />;
+  return(
+    <div>
+      {loading ? (
+        <div className="loading-indication-text">Loading...</div>
+      ) : (
+        <Table orders={orders} />
+      )}
+    </div>
+  )
+
 };

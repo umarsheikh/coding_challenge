@@ -21,3 +21,9 @@
     color: white;
   }
 }
+
+
+.loading-indication-text {
+  font-size: 35px; /* Adjust the font size as needed */
+  text-align: center;
+}
