@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const OrderTable = ({ orders, onSort }) => (
   <table className="table orders-table">
     <thead>
@@ -21,6 +23,26 @@ const OrderTable = ({ orders, onSort }) => (
 );
 
 const OrderRow = ({ order }) => {
+  const [isFulfilling, setIsFulfilling] = useState(false);
+  const handleFulfillOrder = async () => {
+      setIsFulfilling(true);
+      try {
+        await fetch(`/api/orders/${order.id}/fulfill.json`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ fulfilled: true }),
+        });
+        order.fulfilled = true;
+      } catch (error) {
+        alert(`Uh oh! Failed to fulfill the order. ${error}`);
+      } finally {
+        setIsFulfilling(false);
+      }
+    };
+
+
   return (
     <tr>
       <td>{order.id}</td>
@@ -30,10 +52,22 @@ const OrderRow = ({ order }) => {
       <td>{order.item}</td>
       <td>{order.quantity}</td>
       <td>{order.fulfilled ? `Fulfilled` : `In progress`}</td>
-      <td></td>
+      <td>
+        {!order.fulfilled && (
+          <button
+            disabled={isFulfilling}
+            onClick={handleFulfillOrder}
+            className="fulfill-button"
+          >
+            {isFulfilling ? "Fulfilling..." : "Fulfill order"}
+          </button>
+        )}
+      </td>
     </tr>
   );
 };
+
+
 
 const formatDate = (dateString) => {
   let date = new Date(dateString);
