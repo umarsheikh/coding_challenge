@@ -20,6 +20,11 @@
     background-color: #4caf50;
     color: white;
   }
+
+  & th.sortable {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }
 
 

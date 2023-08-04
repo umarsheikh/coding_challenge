@@ -1,11 +1,11 @@
-const OrderTable = ({ orders }) => (
+const OrderTable = ({ orders, onSort }) => (
   <table className="table orders-table">
     <thead>
       <tr>
-        <th>Order #</th>
+        <th className="sortable" onClick={() => onSort("id")}>Order #</th>
         <th>Ordered at</th>
-        <th>Pick up at</th>
-        <th>Customer Name</th>
+        <th className="sortable" onClick={() => onSort("pick_up_at")}>Pick up at</th>
+        <th className="sortable" onClick={() => onSort("customer_name")}>Customer Name</th>
         <th>Item</th>
         <th>Qty</th>
         <th>Status</th>
