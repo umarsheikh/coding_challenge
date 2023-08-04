@@ -12,8 +12,9 @@ class CookiesController < ApplicationController
 
   def create
     @oven = current_user.ovens.find_by!(id: params[:oven_id])
-    @cookies = @oven.cookie.create(cookie_batch_params)
-    redirect_to oven_path(@oven)
+    @cookies = @oven.cookies.create(cookie_batch_params)
+    BakeOvenCookiesJob.set(wait: 30.seconds).perform_later(@oven)
+    redirect_to oven_path(@oven), notice: 'Your cookies will be ready in a few minutes!'
   end
 
   private

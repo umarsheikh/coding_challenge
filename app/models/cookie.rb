@@ -6,6 +6,6 @@ class Cookie < ActiveRecord::Base
   attr_accessor :cookie_count
 
   def ready?
-    true
+    self.baked
   end
 end
