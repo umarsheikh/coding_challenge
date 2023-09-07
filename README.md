@@ -10,9 +10,6 @@ The following backlog contains several bugs and features needing attention. Plea
 
 Please try not to spend more than 4 hours on this exercise. We are not looking for a perfect solution, but rather a demonstration of your ability to work with the technologies, and your approach to resolving each item.
 
-> **IMPORTANT!** 🔥
->
-> Please do not fork this repository. Instead, clone it to your local machine and push your changes to a new **_PRIVATE_** repository in your own GitHub account. This will allow us to review your work in isolation.
 
 ### Bug: React console warning
 
